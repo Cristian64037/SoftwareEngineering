@@ -1,0 +1,26 @@
+doctype html
+head
+    meta(charset='utf-8')
+    title Aldi Login Form
+    link(rel='stylesheet' href='/css/login.css')
+.wrapper
+    .title
+        | Login Form
+    form(action='/')
+        .field
+            input(type='text' required='')
+            label Email Address
+        .field
+            input(type='password' required='')
+            label Password
+        .content
+            .checkbox
+                input#remember-me(type='checkbox')
+                label(for='remember-me') Remember me
+            .pass-link
+                a(href='#') Forgot password?
+        .field
+            input(type='submit' value='Login')
+        .signup-link
+            | Not a member?
+            a(href='#') Signup now

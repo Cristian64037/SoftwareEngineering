@@ -1,0 +1,43 @@
+include ../public/html/header.html
+main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+    .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+        h1.h2 Your PTO
+
+    .container-fluid
+        .row
+            .col-md-4
+                canvas#doughnutChart1.mt-1.mb-4.w-100(width='500' height='380')
+                p.text-center.fs-4 Vacation Days
+            .col-md-4
+                canvas#doughnutChart2.mt-1.mb-4.w-100(width='500' height='380')
+                p.text-center.fs-4 Personal Days
+            .col-md-4
+                canvas#doughnutChart3.mt-1.mb-4.w-100(width='500' height='380')
+                p.text-center.fs-4 Sick Days
+
+    h2 Your Requests
+    .table-responsive
+        table.table.table-striped.table-sm
+            thead
+                tr
+                    th(scope='col') Request ID
+                    th(scope='col') Start Date
+                    th(scope='col') End Date
+                    th(scope='col') PTO Type
+                    th(scope='col') Request Status
+            tbody
+                tr
+                    td 3
+                    td 10/21/22
+                    td 10/24/22
+                    td Vacation
+                    td Pending
+                tr
+                    td 4
+                    td 10/9/22
+                    td 10/9/22
+                    td Sick
+                    td Approved
+
+    script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
+    script(src="/script/chartsdoughnut.js")
