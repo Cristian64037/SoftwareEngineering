@@ -1,4 +1,8 @@
-include ../public/html/header.html
+include html/global/head.html
+title ALDI Employee View
+include html/imports/bootstrapLinks.html
+include html/global/header.html
+include html/navEmployee.html
 main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
     .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
         h1.h2 Your PTO
@@ -7,37 +11,50 @@ main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
         .row
             .col-md-4
                 canvas#doughnutChart1.mt-1.mb-4.w-100(width='500' height='380')
-                p.text-center.fs-4 Vacation Days
+                p.text-center.fs-4 Vacation: 10 Days Available
             .col-md-4
                 canvas#doughnutChart2.mt-1.mb-4.w-100(width='500' height='380')
-                p.text-center.fs-4 Personal Days
+                p.text-center.fs-4 Personal: 3 Days Available
             .col-md-4
                 canvas#doughnutChart3.mt-1.mb-4.w-100(width='500' height='380')
-                p.text-center.fs-4 Sick Days
+                p.text-center.fs-4 Sick: 5 Days Available
 
-    h2 Your Requests
+    .border-bottom.mb-3
+        h1.h2 Your Requests
     .table-responsive
-        table.table.table-striped.table-sm
+        table.table.table-striped
             thead
                 tr
-                    th(scope='col') Request ID
+                    th(scope='col') PTO Type
                     th(scope='col') Start Date
                     th(scope='col') End Date
-                    th(scope='col') PTO Type
                     th(scope='col') Request Status
+                    th(scope='col') Last Modified
+                    th(scope='col') Comments
             tbody
                 tr
-                    td 3
+                    td Vacation
                     td 10/21/22
                     td 10/24/22
-                    td Vacation
                     td Pending
+                    td 10/13/22
+                    td I need more information about this. Four people are taking off that week.
                 tr
-                    td 4
-                    td 10/9/22
-                    td 10/9/22
                     td Sick
+                    td 10/9/22
+                    td 10/9/22
                     td Approved
+                    td 10/9/22
+                    td I approve.
+                tr
+                    td Vacation
+                    td 11/23/22
+                    td 11/30/22
+                    td Rejected
+                    td 10/14/22
+                    td Too long. Take less time.
 
     script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
-    script(src="/script/chartsdoughnut.js")
+    script(src="/script/charts/vacationDoughnut.js")
+    script(src="/script/charts/personalDoughnut.js")
+    script(src="/script/charts/sickDoughnut.js")
