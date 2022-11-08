@@ -10,44 +10,6 @@ header a img {
 }
 
 /*
- * Sidebar
- */
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  padding: 2.5% 0 0; /* Height of navbar */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
-
-@media (max-width: 767.98px) {
-  .sidebar {
-    top: 5rem;
-  }
-  header a img {
-    width: 35%;
-  }
-}
-
-.sidebar-sticky {
-  height: calc(100vh - 48px);
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-.sidebar .nav-link {
-  font-weight: 500;
-  color: #001E78;
-}
-
-.sidebar .nav-link:hover {
-  background-color: #001E78;
-  color: #FFFFFF;
-}
-
-/*
  * Navbar
  */
 
@@ -57,22 +19,18 @@ header a img {
   background-color: rgba(0, 30, 120, .25);
 }
 
-.navbar .navbar-toggler {
-  top: 1.25rem;
-  right: 1rem;
+.nav-item {
+  font-size: 18px;
+  margin-right: 75px;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-
-.navbar .form-control {
-  padding: .75rem 1rem;
+.logout{
+  border: 1px white solid;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-
-.form-control-dark {
-  color: #fff;
-  background-color: rgba(255, 255, 255, .1);
-  border-color: rgba(255, 255, 255, .1);
-}
-
-.form-control-dark:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+.nav-item:hover {
+  background-color: #969BB4;
 }

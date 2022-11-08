@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-var mysql = require('mysql');
-var con = mysql.createConnection({
+let mysql = require('mysql');
+let con = mysql.createConnection({
     host: process.env.host,
     user: process.env.user,
     password: process.env.password,
