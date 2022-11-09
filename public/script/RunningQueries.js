@@ -3,6 +3,7 @@ require('dotenv').config({
     path: path.resolve(__dirname, './.env')
 })
 let mysql = require('mysql');
+let JSD=require("")
 let con = mysql.createConnection({
     host: process.env.host,
     user: process.env.user,
