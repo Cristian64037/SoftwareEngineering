@@ -1,0 +1,136 @@
+include html/global/head.html
+title ALDI Supervisor View
+include html/imports/bootstrapLinks.html
+include html/imports/awesomeLinks.html
+link(rel='stylesheet' href='/css/team.css')
+include html/navSupervisor.html
+section.main
+    .main-top
+        h1 Absent
+    .users
+        .card
+            img(src='xbox1.jpg')
+            h4 David Vasquez
+            p 112
+            .per
+                table
+                    tr
+                        td
+                            span 6 Days
+                        td
+                            span 4 Days
+                        td
+                            span 9 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button View Request
+        .card
+            img(src='xbox2.jpg')
+            h4 Nick Boes
+            p 98
+            .per
+                table
+                    tr
+                        td
+                            span 3 Days
+                        td
+                            span 8 Days
+                        td
+                            span 6 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button View Request
+        .card
+            img(src='xbox3.jpg')
+            h4 Christian Laura
+            p 76
+            .per
+                table
+                    tr
+                        td
+                            span 3 Days
+                        td
+                            span 4 Days
+                        td
+                            span 7 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button View Request
+        .card
+            img(src='xbox4.jpg')
+            h4 Tony Magana
+            p 86
+            .per
+                table
+                    tr
+                        td
+                            span 6 Days
+                        td
+                            span 2 Days
+                        td
+                            span 8 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button View Request
+    section.attendance
+        .attendance-list
+            h1 Current PTO Request
+            table.table
+                thead
+                    tr
+                        th ID
+                        th Name
+                        th Start Date
+                        th End Date
+                        th Type
+                        th
+                        th
+                tbody
+                    tr
+                        td 112
+                        td David Vasquez
+                        td 10-24-22
+                        td 11-19-22
+                        td Sick
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                    tr.active
+                        td 98
+                        td Nick Boes
+                        td 9-7-22
+                        td 11-26-22
+                        td Vacation
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                    tr
+                        td 76
+                        td Christian Laura
+                        td 8-8-22
+                        td 12-8-22
+                        td Sick
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                    tr
+                        td 86
+                        td Tony Magana
+                        td 11-4-22
+                        td 12-4-22
+                        td Personal
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
