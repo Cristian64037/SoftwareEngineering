@@ -27,7 +27,18 @@ appPTO.get('/login', function (req, res) {
 });
 
 appPTO.get('/', function (req, res) {
-    res.render('employee');
+    let PTO=require("/Users/cristian/Fall2022/CSC4350/SoftwareEngineering/public/script/getPTOAvailable.js")
+    let PendingPTO=require("./public/script/getPendingPTOAvailable")
+    let ConsumedPTO=require("./public/script/getConsumedPTO")
+    let Requests=require("./public/script/getRecuests")
+
+
+
+    Promise.all([PTO,PendingPTO,ConsumedPTO,Requests]).then(function(data){
+
+        res.render('employee', {data: data[3]});
+    });
+
 });
 
 appPTO.listen(port, () => console.log(`Listening on http://localhost:${port}/login and http://localhost:${port}/supervisor`));
