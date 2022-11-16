@@ -6,8 +6,8 @@ let bodyParser = require('body-parser');
 appPTO.use(express.static('public'));
 appPTO.use(bodyParser.urlencoded({extended:true}));
 appPTO.set('view engine', 'pug');
-appPTO.get('/supervisorpto', function (req, res) {
-    res.render('supervisor1');
+appPTO.get('/team', function (req, res) {
+    res.render('team');
 });
 
 appPTO.get('/supervisor', function (req, res) {
@@ -30,4 +30,4 @@ appPTO.get('/', function (req, res) {
     res.render('employee');
 });
 
-appPTO.listen(port, () => console.log(`Listening on http://localhost:${port}/login and http://localhost:${port}/supervisorpto`));
+appPTO.listen(port, () => console.log(`Listening on http://localhost:${port}/login and http://localhost:${port}/supervisor`));
