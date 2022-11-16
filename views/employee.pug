@@ -33,31 +33,20 @@ include html/navEmployee.html
                             th(scope='col') Last Modified
                             th(scope='col') Modified By
                             th(scope='col') Comments
+
                     tbody
+                    each field in data
                         tr
-                            td Vacation
-                            td 10/21/22
-                            td 10/24/22
-                            td Pending
-                            td 10/13/22
-                            td John Smith
-                            td I need more information about this. Four people are taking off that week.
-                        tr
-                            td Sick
-                            td 10/9/22
-                            td 10/9/22
-                            td Approved
-                            td 10/9/22
-                            td John Smith
-                            td I approve.
-                        tr
-                            td Vacation
-                            td 11/23/22
-                            td 11/30/22
-                            td Rejected
-                            td 10/14/22
-                            td John Smith
-                            td Too long. Take less time.
+                            td #{field.Pto_Name}
+                            td #{field.dayReq}
+                            td Fixing This
+                            td #{field.NmeOfStat}
+                            td #{field.datChanged}
+                            td #{field.EmployeeChangedId}
+                            td #{field.Comments}
+
+
+
 
             script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
             script(src="/script/charts/vacationDoughnut.js")
