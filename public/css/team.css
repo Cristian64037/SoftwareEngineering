@@ -86,6 +86,7 @@ table thead tr{
     background: blue;
     text-align: left;
     font-weight: bold;
+
 }
 .table th,
 .table td{
@@ -115,14 +116,23 @@ table thead tr{
     background: transparent;
     border: 1px solid red;
 }
+.table Bbutton{
+    padding: 6px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid blue;
+}
 
 .table Abutton:hover{
     background: green;
     color: #fff;
-    transition: 0.5rem;
 }
 .table Dbutton:hover{
     background: red;
     color: #fff;
-    transition: 0.5rem;
+}
+.table Bbutton:hover{
+    background-color: blue;
+    color: #fff;
 }
