@@ -3,9 +3,11 @@ head
     meta(charset='utf-8')
     title Aldi Login Form
     link(rel='stylesheet' href='/css/login.css')
+    include html/imports/bootstrapLinks.html
 .wrapper
     .title
-        | Login Form
+        img(src="/img/ASG_APP_AID_36x36.png" alt="ALDI Logo")
+        | ALDI PTO Tracker
     form(action='/')
         .field
             input(type='text' required='')

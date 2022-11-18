@@ -3,23 +3,59 @@ title Request PTO
 include html/imports/bootstrapLinks.html
 include html/imports/calendarLinks.html
 include html/navEmployee.html
+link(rel='stylesheet' href='/css/style.css')
 main.ms-sm-auto.px-md-4
     .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
-        h1.h2 Request PTO
-
-    .wrapper
-        header
-            p.current-date
-            .icons
-                span#prev.material-symbols-rounded chevron_left
-                span#next.material-symbols-rounded chevron_right
-        .calendar
-            ul.weeks
-                li Sun
-                li Mon
-                li Tue
-                li Wed
-                li Thu
-                li Fri
-                li Sat
-            ul.days
+        h2 Request PTO
+    .container
+        .content
+            form(action='#')
+                .wrapper
+                    header
+                        p.current-date
+                        .icons
+                            span#prev.material-symbols-rounded chevron_left
+                            span#next.material-symbols-rounded chevron_right
+                    .calendar
+                        ul.weeks
+                            li Sun
+                            li Mon
+                            li Tue
+                            li Wed
+                            li Thu
+                            li Fri
+                            li Sat
+                        ul.days
+                .user-details
+                    .input-box
+                        span.details First Name
+                        input(type='text' placeholder='Enter your First Name' required='')
+                    .input-box
+                        span.details Last Name
+                        input(type='text' placeholder='Enter your Last Name' required='')
+                    .input-box
+                        span.details ALDI ID
+                        input(type='text' placeholder='Enter your ALDI ID' required='')
+                    .input-box
+                        span.details Date Selected
+                        input(type='text' placeholder='Enter your days off' required='')
+                    .input-box2
+                        span.details Description
+                        input(type='text' placeholder='Enter your reason?' required='')
+                .pto-details
+                    input#dot-1(type='radio' name='pto')
+                    input#dot-2(type='radio' name='pto')
+                    input#dot-3(type='radio' name='pto')
+                    span.pto-title PTO Type
+                    .category
+                        label(for='dot-1')
+                            span.dot.one
+                            span.pto Sick
+                        label(for='dot-2')
+                            span.dot.two
+                            span.pto Personal
+                        label(for='dot-3')
+                            span.dot.three
+                            span.pto Vacation
+                .button
+                    input(type='submit' value='Register')
