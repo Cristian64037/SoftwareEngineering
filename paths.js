@@ -34,15 +34,16 @@ appPTO.get('/', function (req, res) {
     let Requests=require("./public/script/getRecuests");
 
     Promise.all([PTO,PendingPTO,ConsumedPTO,Requests]).then(function(data){
-        console.log(data[0]);
+        console.log("I CANNOT BELIEVE ITS NOT BUTTER");
+        console.log(data[0][0].vbalance);
+        console.log("I CANNOT BELIEVE ITS NOT BUTTER");
         //console.log(data[1]);
         //console.log(data[2]);
         //console.log(data[4]);
 
 
         res.render('employee2', {data: data[3],
-            balanceData:data[0]
-
+            balanceData:data[0][0]
 
         });
 
