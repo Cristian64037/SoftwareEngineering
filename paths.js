@@ -6,6 +6,7 @@ let bodyParser = require('body-parser');
 appPTO.use(express.static('public'));
 appPTO.use(bodyParser.urlencoded({extended:true}));
 appPTO.set('view engine', 'pug');
+
 appPTO.get('/team', function (req, res) {
     res.render('team');
 });
@@ -27,10 +28,10 @@ appPTO.get('/login', function (req, res) {
 });
 
 appPTO.get('/', function (req, res) {
-    let PTO=require("/Users/cristian/Fall2022/CSC4350/SoftwareEngineering/public/script/getPTOAvailable.js")
-    let PendingPTO=require("./public/script/getPendingPTOAvailable")
-    let ConsumedPTO=require("./public/script/getConsumedPTO")
-    let Requests=require("./public/script/getRecuests")
+    let PTO = require("./public/script/getPTOAvailable");
+    let PendingPTO=require("./public/script/getPendingPTOAvailable");
+    let ConsumedPTO=require("./public/script/getConsumedPTO");
+    let Requests=require("./public/script/getRecuests");
 
     Promise.all([PTO,PendingPTO,ConsumedPTO,Requests]).then(function(data){
         console.log(data[0]);
