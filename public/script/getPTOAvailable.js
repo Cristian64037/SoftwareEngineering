@@ -1,6 +1,8 @@
 
 const con= require("./databaseConnection");
 const empID=774678
+let dataN
+
 module.exports = new Promise (function (resolve, reject) {
     // code to execute
 
@@ -12,13 +14,11 @@ module.exports = new Promise (function (resolve, reject) {
         con.query(sql, function (err, result, fields) {
             //if (err) throw err;
             resolve(result);
+            dataN= resolve(result);
+
             //console.log(result);
         });
 
 
     });
 })
-
-
-
-

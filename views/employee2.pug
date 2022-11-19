@@ -1,0 +1,92 @@
+include html/global/head.html
+title ALDI Employee View
+include html/imports/bootstrapLinks.html
+link(rel='stylesheet' href='/css/employee.css')
+include html/navEmployee.html
+.container-fluid
+    .row
+        main.ms-sm-auto.px-md-5
+            .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+                h2 Your PTO
+                button.btn.btn-outline-dark.disabled
+                    .row.refresh
+                        .col-3
+                            b Refresh Dates
+                        .col-4
+                            | Vacation:
+                            i
+                                b &nbsp;10/22/22
+                        .col-5
+                            | Personal and Sick:
+                            i
+                                b &nbsp;01/01/23
+            .container-fluid
+                .row
+                    .col-md-4
+                        canvas#doughnutChart1
+                            script.
+                                var ctx = document.getElementById("doughnutChart1").getContext('2d');
+                                ctx.canvas.parentNode.style.width = '50%';
+                                var idata = #{data};
+                                var chart = new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: [],
+                                        datasets: [{
+                                            data: [10,9,8,7,5],
+                                            backgroundColor: ['red', 'green', 'blue', 'pink', 'black'],
+                                            borderColor: ['green', 'blue', 'red', 'black', 'pink'],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        title: {
+                                            display: true,
+                                            text: "top 5 centros com mais projetos"
+                                        },
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                    }
+                                });
+
+                        p.text-center.fs-4 Vacation: 10 Days Available
+                    .col-md-4
+                        canvas#doughnutChart2.mt-1.mb-4.w-100(width='500' height='380')
+                        p.text-center.fs-4 Personal: 3 Days Available
+                    .col-md-4
+                        canvas#doughnutChart3.mt-1.mb-4.w-100(width='500' height='380')
+                        p.text-center.fs-4 Sick: 5 Days Available
+
+            .border-bottom.mb-3
+                h2 Your Requests
+            .table-responsive
+                table.table.table-striped
+                    thead
+                        tr
+                            th(scope='col') PTO Type
+                            th(scope='col') Start Date
+                            th(scope='col') End Date
+                            th(scope='col') Request Status
+                            th(scope='col') Last Modified
+                            th(scope='col') Modified By
+                            th(scope='col') Comments
+
+                    tbody
+                    each field in data
+                        tr
+                            td #{field.Pto_Name}
+                            td #{field.dayReq}
+                            td Fixing This
+                            td #{field.NmeOfStat}
+                            td #{field.datChanged}
+                            td #{field.EmployeeChangedId}
+                            td #{field.Comments}
+
+
+
+
+            script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
+            script(src="/script/charts/vacationDoughnut.js")
+            script(src="/script/charts/personalDoughnut.js")
+            script(src="/script/charts/sickDoughnut.js")

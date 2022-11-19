@@ -32,11 +32,15 @@ appPTO.get('/', function (req, res) {
     let ConsumedPTO=require("./public/script/getConsumedPTO")
     let Requests=require("./public/script/getRecuests")
 
-
-
     Promise.all([PTO,PendingPTO,ConsumedPTO,Requests]).then(function(data){
+        console.log(data[0]);
+        //console.log(data[1]);
+        //console.log(data[2]);
+        //console.log(data[4]);
 
-        res.render('employee', {data: data[3]});
+
+        res.render('employee2', {data: data[3]});
+
     });
 
 });
