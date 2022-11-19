@@ -3,8 +3,6 @@ title ALDI Employee View
 include html/imports/bootstrapLinks.html
 link(rel='stylesheet' href='/css/employee.css')
 include html/navEmployee.html
-script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
-
 .container-fluid
     .row
         main.ms-sm-auto.px-md-5
@@ -26,25 +24,6 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                 .row
                     .col-md-4
                         canvas#doughnutChart1.mt-1.mb-4.w-100(width='500' height='380')
-                            script.
-                                window.onload = function(){
-                                var pChart = document.getElementById("doughnutChart1").getContext('2d');
-                                    var pDoughnut = new Chart(pChart, {
-                                        type: 'doughnut',
-                                        data: {
-                                            labels: ["Available", "Pending", "Consumed"],
-                                            datasets: [{
-                                                data: [10, 6, 50],
-                                                backgroundColor: ["#75B809", "#FA8214", "#C80000"],
-                                                hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
-                                            }]
-                                        },
-                                        options: {
-                                            responsive: true
-                                        }
-                                    });
-                                }
-
                         p.text-center.fs-4 Vacation: 10 Days Available
                     .col-md-4
                         canvas#doughnutChart2.mt-1.mb-4.w-100(width='500' height='380')
@@ -81,7 +60,7 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
 
 
 
-            //script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
-            //script(src="/script/charts/vacationDoughnut.js")
-            script(src="/script/charts/personalDoughnut.js")
+            script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
+            script(src="/script/charts/vacationDoughnut.js")
+            script(src="/script/charts/personalDoughnut2.js")
             script(src="/script/charts/sickDoughnut.js")

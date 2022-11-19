@@ -40,7 +40,11 @@ appPTO.get('/', function (req, res) {
         //console.log(data[4]);
 
 
-        res.render('employee2', {data: data[3]});
+        res.render('employee2', {data: data[3],
+            balanceData:data[0]
+
+
+        });
 
     });
 

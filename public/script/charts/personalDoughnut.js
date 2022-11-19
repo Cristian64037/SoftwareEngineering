@@ -6,7 +6,7 @@ let pDoughnut = new Chart(pChart, {
     data: {
         labels: ["Available", "Pending", "Consumed"],
         datasets: [{
-            data: [PTOAvailable.pbalance,PTOAvailable[1],PTOAvailable.vbalance],
+            data: [1,2,3],
             backgroundColor: ["#75B809", "#FA8214", "#C80000"],
             hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
         }]
