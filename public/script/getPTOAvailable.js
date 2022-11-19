@@ -14,7 +14,7 @@ module.exports = new Promise (function (resolve, reject) {
         con.query(sql, function (err, result, fields) {
             //if (err) throw err;
             resolve(result);
-            dataN= resolve(result);
+            //dataN= resolve(result);
 
             //console.log(result);
         });

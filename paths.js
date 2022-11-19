@@ -28,22 +28,44 @@ appPTO.get('/login', function (req, res) {
 });
 
 appPTO.get('/', function (req, res) {
+
+    //Gets us all available balance
     let PTO = require("./public/script/getPTOAvailable");
+    //This gets pending pto Requests
     let PendingPTO=require("./public/script/getPendingPTOAvailable");
     let ConsumedPTO=require("./public/script/getConsumedPTO");
     let Requests=require("./public/script/getRecuests");
+    
 
     Promise.all([PTO,PendingPTO,ConsumedPTO,Requests]).then(function(data){
-        console.log("I CANNOT BELIEVE ITS NOT BUTTER");
-        console.log(data[0][0].vbalance);
-        console.log("I CANNOT BELIEVE ITS NOT BUTTER");
-        //console.log(data[1]);
-        //console.log(data[2]);
-        //console.log(data[4]);
+        //Vacation,Personal,Sick
+        let pendingBalance=[0,0,0]
+        
+        data[1].forEach(element => {
+            if (element.Pto_Name=="Vacation"){
+                
+                pendingBalance[0]+=parseInt(element.numofDays)
 
+                
+            }
+            else if(element.Pto_Name=="Personal"){
+                
+                pendingBalance[1]+=parseInt(element.numofDays)
+            }
+            else if(element.Pto_Name=="Sick"){
+                
+                pendingBalance[2]+=parseInt(element.numofDays)
+            }
 
-        res.render('employee2', {data: data[3],
-            balanceData:data[0][0]
+            
+        });
+        console.log(pendingBalance)
+        res.render('employee2', {
+            
+            data: data[3],
+            balanceData:data[0][0],
+            PendingPTORequest:pendingBalance
+
 
         });
 

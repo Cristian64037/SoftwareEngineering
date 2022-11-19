@@ -27,14 +27,15 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                     .col-md-4
                         canvas#doughnutChart1.mt-1.mb-4.w-100(width='500' height='380')
                             script.
-                                window.onload = function(){
+
+                    
                                 var pChart = document.getElementById("doughnutChart1").getContext('2d');
                                     var pDoughnut = new Chart(pChart, {
                                         type: 'doughnut',
                                         data: {
                                             labels: ["Available", "Pending", "Consumed"],
                                             datasets: [{
-                                                data: [#{balanceData.vbalance}, #{balanceData.pbalance}, #{balanceData.sbalance}],
+                                                data: [#{balanceData.vbalance}, 0, 3],
                                                 backgroundColor: ["#75B809", "#FA8214", "#C80000"],
                                                 hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
                                             }]
@@ -43,15 +44,51 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                                             responsive: true
                                         }
                                     });
-                                }
+                                
 
                         p.text-center.fs-4 Vacation: #{balanceData.vbalance} Days Available
                     .col-md-4
                         canvas#doughnutChart2.mt-1.mb-4.w-100(width='500' height='380')
-                        p.text-center.fs-4 Personal: 3 Days Available
+                        script.
+                                
+                                var pChart = document.getElementById("doughnutChart2").getContext('2d');
+                                    var pDoughnut = new Chart(pChart, {
+                                        type: 'doughnut',
+                                        data: {
+                                            labels: ["Available", "Pending", "Consumed"],
+                                            datasets: [{
+                                                data: [#{balanceData.pbalance}, 2, 3],
+                                                backgroundColor: ["#75B809", "#FA8214", "#C80000"],
+                                                hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true
+                                        }
+                                    });
+                                
+                        p.text-center.fs-4 Personal: #{balanceData.pbalance} Days Available
                     .col-md-4
                         canvas#doughnutChart3.mt-1.mb-4.w-100(width='500' height='380')
-                        p.text-center.fs-4 Sick: 5 Days Available
+                        script.
+                                
+                                var pChart = document.getElementById("doughnutChart3").getContext('2d');
+                                    var pDoughnut = new Chart(pChart, {
+                                        type: 'doughnut',
+                                        data: {
+                                            labels: ["Available", "Pending", "Consumed"],
+                                            datasets: [{
+                                                data: [#{balanceData.sbalance}, 1, 1],
+                                                backgroundColor: ["#75B809", "#FA8214", "#C80000"],
+                                                hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true
+                                        }
+                                    });
+                                
+                        p.text-center.fs-4 Sick: #{balanceData.sbalance} Days Available
 
             .border-bottom.mb-3
                 h2 Your Requests
@@ -81,7 +118,7 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
 
 
 
-            //script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
-            //script(src="/script/charts/vacationDoughnut.js")
-            script(src="/script/charts/personalDoughnut.js")
-            script(src="/script/charts/sickDoughnut.js")
+        //-     //script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
+        //-     //script(src="/script/charts/vacationDoughnut.js")
+        //-    // script(src="/script/charts/personalDoughnut.js")
+        //-    //script(src="/script/charts/sickDoughnut.js")
