@@ -2,7 +2,6 @@ const con= require("./databaseConnection");
 let results;
 const empID=996996
 
-
 module.exports = new Promise (function (resolve, reject) {
     con.connect(function(err) {
         sql="select Request.ptorequestID, PtoType.Pto_Name, DayOff.dayReq, StausName.NmeOfStat, PtoStatus.dateChanged, PtoStatus.EmployeeChangedId,PtoStatus.Comments" +

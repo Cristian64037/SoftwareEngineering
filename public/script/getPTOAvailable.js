@@ -1,7 +1,8 @@
 
 const con= require("./databaseConnection");
 const empID=996996
-let dataN
+
+
 
 module.exports = new Promise (function (resolve, reject) {
     // code to execute
@@ -16,7 +17,7 @@ module.exports = new Promise (function (resolve, reject) {
             resolve(result);
             //dataN= resolve(result);
 
-            //console.log(result);
+            console.log(result);
         });
 
 
