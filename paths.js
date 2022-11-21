@@ -2,6 +2,7 @@ let express = require('express');
 let appPTO = express()
 let port = 4000;
 let bodyParser = require('body-parser');
+const Console = require("console");
 
 appPTO.use(express.static('public'));
 appPTO.use(bodyParser.urlencoded({extended:true}));
@@ -36,39 +37,44 @@ appPTO.get('/', function (req, res) {
 
     //Get us Max Values
     let MaxPTO=require("./public/script/getMaxPTOValues");
-
-    let ConsumedPTO=require("./public/script/getConsumedPTO");
     let Requests=require("./public/script/getRecuests");
     
 
-    Promise.all([PTO,PendingPTO,MaxPTO,ConsumedPTO,Requests]).then(function(data){
+    Promise.all([PTO,PendingPTO,MaxPTO,Requests]).then(function(data){
         //Vacation,Personal,Sick
-        let pendingBalance=[0,0,0]
-        
+        let pendingBalance=[0,0,0];
+        let consumedBalance=[0,0,0];
+
+        consumedBalance[0] += parseInt(data[2][0].VacationTotal);
+        consumedBalance[1] += parseInt(data[2][0].PersonalTotal);
+        consumedBalance[2] += parseInt(data[2][0].SickTotal);
+
+        consumedBalance[0] -= parseInt(data[0][0].vbalance);
+        consumedBalance[1] -= parseInt(data[0][0].pbalance);
+        consumedBalance[2] -= parseInt(data[0][0].sbalance);
+
         data[1].forEach(element => {
             if (element.Pto_Name=="Vacation"){                
-                pendingBalance[0]+=parseInt(element.numofDays)                
+                pendingBalance[0]+=parseInt(element.numofDays);
+                consumedBalance[0]-=parseInt(element.numofDays);
             }
             else if(element.Pto_Name=="Personal"){              
-                pendingBalance[1]+=parseInt(element.numofDays)
+                pendingBalance[1]+=parseInt(element.numofDays);
+                consumedBalance[1]-=parseInt(element.numofDays);
             }
             else if(element.Pto_Name=="Sick"){           
-                pendingBalance[2]+=parseInt(element.numofDays)
+                pendingBalance[2]+=parseInt(element.numofDays);
+                consumedBalance[2]-=parseInt(element.numofDays);
             }
-
-            
         });
-        //Vacation,Sick,PErsonal
-        let consumedBalance=[0,0,0]
-        consumedBalance[0]+=parseInt(data[3].vbalance)
-        console.log(data[2][0])
+
+        console.log(consumedBalance);
+
         res.render('employee2', {
-            
-            data: data[4],
+            data: data[3],
             balanceData:data[0][0],
-            PendingPTORequest:pendingBalance
-
-
+            PendingPTORequest:pendingBalance,
+            consumedData: consumedBalance
         });
 
     });
