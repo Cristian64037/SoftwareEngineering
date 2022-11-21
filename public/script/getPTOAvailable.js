@@ -1,6 +1,6 @@
 
 const con= require("./databaseConnection");
-const empID=774678
+const empID=996996
 let dataN
 
 module.exports = new Promise (function (resolve, reject) {
