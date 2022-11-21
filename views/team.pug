@@ -25,7 +25,11 @@ section.main
                         td Sick
                         td Personal
                         td Vacation
-            button View Request
+            button(onclick='dv()') View Request
+                script.
+                    function dv() {
+                        alert('David Vasquez, Sick, 10/24/22-11/19/22')
+                    }
         .card
             img(src='img/AL_BLR_SQ_MC_RGB.png')
             h4 Nick Boes
@@ -43,7 +47,12 @@ section.main
                         td Sick
                         td Personal
                         td Vacation
-            button View Request
+            button(onclick='nb()') View Request
+                script.
+                    function nb() {
+                        alert('Nick Boes, Vacation, 9/7/22-11/26/22')
+                    }
+
         .card
             img(src='img/AL_BLR_SQ_MC_RGB.png')
             h4 Christian Laura
@@ -61,7 +70,12 @@ section.main
                         td Sick
                         td Personal
                         td Vacation
-            button View Request
+            button(onclick='cl()') View Request
+                script.
+                    function cl() {
+                        alert('Christian Lara, Sick, 8/8/22-12/8/22')
+                    }
+
         .card
             img(src='img/AL_BLR_SQ_MC_RGB.png')
             h4 Tony Magana
@@ -79,7 +93,12 @@ section.main
                         td Sick
                         td Personal
                         td Vacation
-            button View Request
+            button(onclick='tm()') View Request
+                script.
+                    function tm() {
+                        alert('Tony Magana, Personal, 11/4/22-12/4/22')
+                    }
+
     section.attendance
         .attendance-list
             h1 Current PTO Request
