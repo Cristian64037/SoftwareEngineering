@@ -33,36 +33,38 @@ appPTO.get('/', function (req, res) {
     let PTO = require("./public/script/getPTOAvailable");
     //This gets pending pto Requests
     let PendingPTO=require("./public/script/getPendingPTOAvailable");
+
+    //Get us Max Values
+    let MaxPTO=require("./public/script/getMaxPTOValues");
+
     let ConsumedPTO=require("./public/script/getConsumedPTO");
     let Requests=require("./public/script/getRecuests");
     
 
-    Promise.all([PTO,PendingPTO,ConsumedPTO,Requests]).then(function(data){
+    Promise.all([PTO,PendingPTO,MaxPTO,ConsumedPTO,Requests]).then(function(data){
         //Vacation,Personal,Sick
         let pendingBalance=[0,0,0]
         
         data[1].forEach(element => {
-            if (element.Pto_Name=="Vacation"){
-                
-                pendingBalance[0]+=parseInt(element.numofDays)
-
-                
+            if (element.Pto_Name=="Vacation"){                
+                pendingBalance[0]+=parseInt(element.numofDays)                
             }
-            else if(element.Pto_Name=="Personal"){
-                
+            else if(element.Pto_Name=="Personal"){              
                 pendingBalance[1]+=parseInt(element.numofDays)
             }
-            else if(element.Pto_Name=="Sick"){
-                
+            else if(element.Pto_Name=="Sick"){           
                 pendingBalance[2]+=parseInt(element.numofDays)
             }
 
             
         });
-        console.log(pendingBalance)
+        //Vacation,Sick,PErsonal
+        let consumedBalance=[0,0,0]
+        consumedBalance[0]+=parseInt(data[3].vbalance)
+        console.log(data[2][0])
         res.render('employee2', {
             
-            data: data[3],
+            data: data[4],
             balanceData:data[0][0],
             PendingPTORequest:pendingBalance
 
