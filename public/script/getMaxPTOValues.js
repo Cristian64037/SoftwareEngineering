@@ -9,7 +9,7 @@ con.connect(function(err) {
     
     con.query(sql, function (err, result, fields) {
         resolve(result);
-        console.log(result);
+        
     });
    
 

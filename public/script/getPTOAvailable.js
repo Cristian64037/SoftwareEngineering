@@ -17,7 +17,7 @@ module.exports = new Promise (function (resolve, reject) {
             resolve(result);
             //dataN= resolve(result);
 
-            console.log(result);
+            
         });
 
 
