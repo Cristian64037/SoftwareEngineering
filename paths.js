@@ -32,6 +32,20 @@ appPTO.get('/supervisor', function (req, res) {
         //TotalPTO
         let pendingBalance=[0];
         let consumedBalance=[0];
+
+        let dict2={}
+        
+        data[3].forEach(reqD => {
+            if (!(reqD.ptorequestID in dict2)){              
+                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments];           
+            }
+             else{
+                 
+                  dict2[reqD.ptorequestID][0].push(reqD.dayReq)
+
+              }
+            
+        });
         
         consumedBalance[0] += parseInt(data[2][0].VacationTotal);
         consumedBalance[0] -= parseInt(data[0][0].vbalance);
@@ -46,7 +60,7 @@ appPTO.get('/supervisor', function (req, res) {
             }
         });
         res.render('supervisor', {
-            data: data[3],
+            data: dict2,
             balanceData:data[0][0],
             PendingPTORequest:pendingBalance,
             consumedData: consumedBalance,
@@ -102,16 +116,12 @@ appPTO.get('/', function (req, res) {
         let dict2={}
         
         data[3].forEach(reqD => {
-            if (!(reqD.ptorequestID in dict2)){
-
-                
-                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments];
-               
+            if (!(reqD.ptorequestID in dict2)){              
+                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments];           
             }
              else{
                  
                   dict2[reqD.ptorequestID][0].push(reqD.dayReq)
-
 
               }
             

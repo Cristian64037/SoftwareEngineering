@@ -63,12 +63,12 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                                     th(scope='col') Comments
 
                                 tbody
-                                each field in data
+                                each val,key in data
                                     tr
-                                        td #{field.Pto_Name}
-                                        td #{field.dayReq}
-                                        td Fixing This
-                                        td #{field.NmeOfStat}
-                                        td #{field.datChanged}
-                                        td #{field.EmployeeChangedId}
-                                        td #{field.Comments}
+                                        td #{data[key][1]}
+                                        td #{moment(data[key][0][0]).format('MM/DD/YYYY')}
+                                        td #{moment(data[key][0][data[key][0].length-1]).format('MM/DD/YYYY')}
+                                        td #{data[key][2]}
+                                        td #{moment(data[key][3]).format('MM/DD/YYYY')}
+                                        td #{data[key][4]}
+                                        td #{data[key][5]}
