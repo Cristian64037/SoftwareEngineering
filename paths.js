@@ -99,22 +99,24 @@ appPTO.get('/', function (req, res) {
         let pendingBalance=[0,0,0];
         let consumedBalance=[0,0,0];
 
-        let dict={}
+        let dict2={}
         
         data[3].forEach(reqD => {
-            if (!(reqD.ptorequestID in dict)){
+            if (!(reqD.ptorequestID in dict2)){
 
-                dict[reqD.ptorequestID]=[reqD.dayReq]
+                
+                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments];
+               
             }
              else{
-                  dict[reqD.ptorequestID].push(reqD.dayReq)
+                 
+                  dict2[reqD.ptorequestID][0].push(reqD.dayReq)
 
 
               }
             
         });
-        
-        
+ 
 
         consumedBalance[0] += parseInt(data[2][0].VacationTotal);
         consumedBalance[1] += parseInt(data[2][0].PersonalTotal);
@@ -142,8 +144,7 @@ appPTO.get('/', function (req, res) {
     
 
         res.render('employee2', {
-            data: data[3],
-            reqDays:dict,
+            data: dict2,
             balanceData:data[0][0],
             PendingPTORequest:pendingBalance,
             consumedData: consumedBalance,
