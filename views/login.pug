@@ -1,13 +1,10 @@
-doctype html
-head
-    meta(charset='utf-8')
-    title Aldi Login Form
-    link(rel='stylesheet' href='/css/login.css')
-    include html/imports/bootstrapLinks.html
+include html/global/head.html
+title Aldi Login Form
+include html/imports/bootstrapLinks.html
+link(rel='stylesheet' href='/css/login.css')
 .wrapper
     .title
-        img(src="/img/ASG_APP_AID_36x36.png" alt="ALDI Logo")
-        | &nbsp; ALDI PTO Tracker
+        img(src="/img/AL_BLR_LA_MC_RGB.png" alt="ALDI Logo")
     form(action='/')
         .field
             input(type='text' required='')
@@ -25,4 +22,4 @@ head
             input(type='submit' value='Login')
         .signup-link
             | Not a member?
-            a(href='#') Signup now
+            a(href='#')  Signup now
