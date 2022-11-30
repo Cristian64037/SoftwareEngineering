@@ -1,4 +1,4 @@
-const con= require("./databaseConnection");
+const con= require("../../public/script/databaseConnection");
 let JSD=require("../../PTOAccrualBrackets.json")
 con.connect(function(err) {
 

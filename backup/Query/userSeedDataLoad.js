@@ -1,4 +1,4 @@
-const con= require("./databaseConnection");
+const con= require("../../public/script/databaseConnection");
 let JSD2=require("../../PTOUserSeedData.json")
 con.connect(function(err) {
 

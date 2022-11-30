@@ -1,4 +1,4 @@
-const con= require("./databaseConnection");
+const con= require("../../public/script/databaseConnection");
 con.connect(function(err) {
     sql="select * from Roles";
     if (err) throw err;

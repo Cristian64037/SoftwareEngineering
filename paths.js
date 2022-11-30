@@ -22,7 +22,7 @@ appPTO.get('/supervisor', function (req, res) {
     //Get us Max Values
     let MaxPTO=require("./public/script/getMaxPTOValues");
     
-    let Requests=require("./public/script/getRecuests");
+    let Requests=require("./public/script/getRequests");
     
 
     let User=require("./public/script/getUser");
@@ -33,9 +33,7 @@ appPTO.get('/supervisor', function (req, res) {
         let pendingBalance=[0];
         let consumedBalance=[0];
         let date_ob= new Date();
-        let date=date_ob.getDate();
-        //console.log(date_ob);
-        //console.log("HELLO")
+        
 
         let dict2={}
         
@@ -50,10 +48,6 @@ appPTO.get('/supervisor', function (req, res) {
               }
             
         });
-        // dict2.forEach(element => {
-        //     if(dict2[element]<date.)
-            
-        // });
         
         consumedBalance[0] += parseInt(data[2][0].VacationTotal);
         consumedBalance[0] -= parseInt(data[0][0].vbalance);
@@ -79,9 +73,7 @@ appPTO.get('/supervisor', function (req, res) {
 
 });
 
-// appPTO.get('/history', function (req, res) {
-//     res.render('history');
-// });
+
 
 appPTO.get('/request', function (req, res) {
     res.render('request');
@@ -92,28 +84,27 @@ appPTO.get('/login', function (req, res) {
 });
 
 appPTO.get('/history', function (req, res) {
-    let Requests=require("./public/script/getRecuests");
+    let Requests=require("./public/script/getRequests");
     let History=require("./public/script/getHistory")
-    console.log("Ourside of PROMISE")
+    
     Promise.all([Requests,History]).then(function(data){
-        console.log(Requests)
+        
         let dict2={}
+        
         
         data[1].forEach(reqD => {
             if (!(reqD.ptorequestID+reqD.NmeOfStat in dict2)){              
                 dict2[reqD.ptorequestID+reqD.NmeOfStat]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate,reqD.ptorequestID];           
             }
-             else{
-                 
+             else{              
                   dict2[reqD.ptorequestID+reqD.NmeOfStat][0].push(reqD.dayReq)
-
               }
             
         });
-        console.log(dict2);
+        
         res.render('history', {
-            data: dict2,
-            data2:data[1],
+            data: dict2
+            
             
         })
 
@@ -139,7 +130,7 @@ appPTO.get('/', function (req, res) {
 
     //Get us Max Values
     let MaxPTO=require("./public/script/getMaxPTOValues");
-    let Requests=require("./public/script/getRecuests");
+    let Requests=require("./public/script/getRequests");
     let User=require("./public/script/getUser");
     
 
