@@ -38,7 +38,11 @@ main.ms-sm-auto.px-md-4
                         input(type='text' placeholder='Enter your ALDI ID' required='')
                     .input-box
                         span.details Date Selected
-                        input(type='text' placeholder='Enter your days off' required='')
+                        html
+                            head
+                            body
+                                input#start(type='date', name='trip-start', value='2022-11-30', min='2022-11-01', max='2023-12-31')
+
                     .input-box2
                         span.details Description
                         input(type='text' placeholder='Enter your reason?' required='')
@@ -58,4 +62,5 @@ main.ms-sm-auto.px-md-4
                             span.dot.three
                             span.pto Vacation
                 .button
-                    input(type='submit' value='Register')
+                    input(type='submit' value='Request')
+

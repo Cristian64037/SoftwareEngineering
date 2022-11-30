@@ -44,10 +44,10 @@ table thead tr{
     border-radius: 10px;
     cursor: pointer;
     background: transparent;
-    border: 1px solid green;
+    border: 1px solid blue;
 }
 .table Abutton:hover{
-    background: green;
+    background: blue;
     color: #fff;
     transition: 0.5rem;
 }
