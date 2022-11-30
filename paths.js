@@ -32,6 +32,10 @@ appPTO.get('/supervisor', function (req, res) {
         //TotalPTO
         let pendingBalance=[0];
         let consumedBalance=[0];
+        let date_ob= new Date();
+        let date=date_ob.getDate();
+        console.log(date_ob);
+        console.log("HELLO")
 
         let dict2={}
         
@@ -46,6 +50,10 @@ appPTO.get('/supervisor', function (req, res) {
               }
             
         });
+        // dict2.forEach(element => {
+        //     if(dict2[element]<date.)
+            
+        // });
         
         consumedBalance[0] += parseInt(data[2][0].VacationTotal);
         consumedBalance[0] -= parseInt(data[0][0].vbalance);
