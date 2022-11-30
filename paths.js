@@ -34,14 +34,14 @@ appPTO.get('/supervisor', function (req, res) {
         let consumedBalance=[0];
         let date_ob= new Date();
         let date=date_ob.getDate();
-        console.log(date_ob);
-        console.log("HELLO")
+        //console.log(date_ob);
+        //console.log("HELLO")
 
         let dict2={}
         
         data[3].forEach(reqD => {
             if (!(reqD.ptorequestID in dict2)){              
-                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments];           
+                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate];           
             }
              else{
                  
@@ -79,9 +79,9 @@ appPTO.get('/supervisor', function (req, res) {
 
 });
 
-appPTO.get('/history', function (req, res) {
-    res.render('history');
-});
+// appPTO.get('/history', function (req, res) {
+//     res.render('history');
+// });
 
 appPTO.get('/request', function (req, res) {
     res.render('request');
@@ -92,11 +92,38 @@ appPTO.get('/login', function (req, res) {
 });
 
 appPTO.get('/history', function (req, res) {
-    res.render('history');
+    let Requests=require("./public/script/getRecuests");
+    let History=require("./public/script/getHistory")
+    console.log("Ourside of PROMISE")
+    Promise.all([Requests,History]).then(function(data){
+        console.log(Requests)
+        let dict2={}
+        
+        data[1].forEach(reqD => {
+            if (!(reqD.ptorequestID+reqD.NmeOfStat in dict2)){              
+                dict2[reqD.ptorequestID+reqD.NmeOfStat]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate,reqD.ptorequestID];           
+            }
+             else{
+                 
+                  dict2[reqD.ptorequestID+reqD.NmeOfStat][0].push(reqD.dayReq)
+
+              }
+            
+        });
+        console.log(dict2);
+        res.render('history', {
+            data: dict2,
+            data2:data[1],
+            
+        })
+
+
+    })
 });
 
 appPTO.get('/request', function (req, res) {
-    res.render('request');
+    res.render('request')
+    
 });
 
 appPTO.get('/login', function (req, res) {
@@ -125,7 +152,7 @@ appPTO.get('/', function (req, res) {
         
         data[3].forEach(reqD => {
             if (!(reqD.ptorequestID in dict2)){              
-                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments];           
+                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate];           
             }
              else{
                  
@@ -161,7 +188,7 @@ appPTO.get('/', function (req, res) {
 
     
 
-        res.render('employee2', {
+        res.render('employee', {
             data: dict2,
             balanceData:data[0][0],
             PendingPTORequest:pendingBalance,
