@@ -2,8 +2,14 @@ let express = require('express');
 let appPTO = express()
 let port = 4000;
 let bodyParser = require('body-parser');
-const Console = require("console");
+const session = require('express-session');
+const connection = require("./public/script/databaseConnection");
 
+appPTO.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 appPTO.use(express.static('public'));
 appPTO.use(bodyParser.urlencoded({extended:true}));
 appPTO.set('view engine', 'pug');
@@ -73,8 +79,6 @@ appPTO.get('/supervisor', function (req, res) {
 
 });
 
-
-
 appPTO.get('/request', function (req, res) {
     res.render('request');
 });
@@ -82,6 +86,23 @@ appPTO.get('/request', function (req, res) {
 appPTO.get('/login', function (req, res) {
     res.render('login');
 });
+
+appPTO.post('/auth', function(request, response) {
+    let user = require("./public/script/getAuthenticatedUser");
+    user.getUser(request, response);
+});
+
+// appPTO.get('/home', function(request, response) {
+//     // If the user is loggedin
+//     if (request.session.loggedin) {
+//         // Output username
+//         response.send('Welcome back, ' + request.session.username + '!');
+//     } else {
+//         // Not logged in
+//         response.send('Please login to view this page!');
+//     }
+//     response.end();
+// });
 
 appPTO.get('/history', function (req, res) {
     let Requests=require("./public/script/getRequests");
