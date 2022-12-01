@@ -3,7 +3,6 @@ let appPTO = express()
 let port = 4000;
 let bodyParser = require('body-parser');
 const session = require('express-session');
-const connection = require("./public/script/databaseConnection");
 
 appPTO.use(session({
     secret: 'secret',
@@ -143,73 +142,78 @@ appPTO.get('/login', function (req, res) {
 });
 
 appPTO.get('/', function (req, res) {
+    //If the user is loggedin
+    if (req.session.loggedin) {
 
-    //Gets us all available balance
-    let PTO = require("./public/script/getPTOAvailable");
-    //This gets pending pto Requests
-    let PendingPTO=require("./public/script/getPendingPTOAvailable");
+        //Gets us all available balance
+        let PTO = require("./public/script/getPTOAvailable");
+        //This gets pending pto Requests
+        let PendingPTO=require("./public/script/getPendingPTOAvailable");
 
-    //Get us Max Values
-    let MaxPTO=require("./public/script/getMaxPTOValues");
-    let Requests=require("./public/script/getRequests");
-    let User=require("./public/script/getUser");
-    
+        //Get us Max Values
+        let MaxPTO=require("./public/script/getMaxPTOValues");
+        let Requests=require("./public/script/getRequests");
+        let User=require("./public/script/getUser");
 
-    Promise.all([PTO,PendingPTO,MaxPTO,Requests,User]).then(function(data){
-        //Vacation,Personal,Sick
-        let pendingBalance=[0,0,0];
-        let consumedBalance=[0,0,0];
 
-        let dict2={}
-        
-        data[3].forEach(reqD => {
-            if (!(reqD.ptorequestID in dict2)){              
-                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate];           
-            }
-             else{
-                 
-                  dict2[reqD.ptorequestID][0].push(reqD.dayReq)
+        Promise.all([PTO,PendingPTO,MaxPTO,Requests,User]).then(function(data){
+            //Vacation,Personal,Sick
+            let pendingBalance=[0,0,0];
+            let consumedBalance=[0,0,0];
 
-              }
-            
+            let dict2={}
+
+            data[3].forEach(reqD => {
+                if (!(reqD.ptorequestID in dict2)){
+                    dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate];
+                }
+                 else{
+
+                      dict2[reqD.ptorequestID][0].push(reqD.dayReq)
+
+                  }
+
+            });
+
+
+            consumedBalance[0] += parseInt(data[2][0].VacationTotal);
+            consumedBalance[1] += parseInt(data[2][0].PersonalTotal);
+            consumedBalance[2] += parseInt(data[2][0].SickTotal);
+
+            consumedBalance[0] -= parseInt(data[0][0].vbalance);
+            consumedBalance[1] -= parseInt(data[0][0].pbalance);
+            consumedBalance[2] -= parseInt(data[0][0].sbalance);
+
+            data[1].forEach(element => {
+                if (element.Pto_Name=="Vacation"){
+                    pendingBalance[0]+=parseInt(element.numofDays);
+                    consumedBalance[0]-=parseInt(element.numofDays);
+                }
+                else if(element.Pto_Name=="Personal"){
+                    pendingBalance[1]+=parseInt(element.numofDays);
+                    consumedBalance[1]-=parseInt(element.numofDays);
+                }
+                else if(element.Pto_Name=="Sick"){
+                    pendingBalance[2]+=parseInt(element.numofDays);
+                    consumedBalance[2]-=parseInt(element.numofDays);
+                }
+            });
+
+
+
+            res.render('employee', {
+                data: dict2,
+                balanceData:data[0][0],
+                PendingPTORequest:pendingBalance,
+                consumedData: consumedBalance,
+                User :data[4][0]
+            });
+
         });
- 
-
-        consumedBalance[0] += parseInt(data[2][0].VacationTotal);
-        consumedBalance[1] += parseInt(data[2][0].PersonalTotal);
-        consumedBalance[2] += parseInt(data[2][0].SickTotal);
-
-        consumedBalance[0] -= parseInt(data[0][0].vbalance);
-        consumedBalance[1] -= parseInt(data[0][0].pbalance);
-        consumedBalance[2] -= parseInt(data[0][0].sbalance);
-
-        data[1].forEach(element => {
-            if (element.Pto_Name=="Vacation"){                
-                pendingBalance[0]+=parseInt(element.numofDays);
-                consumedBalance[0]-=parseInt(element.numofDays);
-            }
-            else if(element.Pto_Name=="Personal"){              
-                pendingBalance[1]+=parseInt(element.numofDays);
-                consumedBalance[1]-=parseInt(element.numofDays);
-            }
-            else if(element.Pto_Name=="Sick"){           
-                pendingBalance[2]+=parseInt(element.numofDays);
-                consumedBalance[2]-=parseInt(element.numofDays);
-            }
-        });
-
-    
-
-        res.render('employee', {
-            data: dict2,
-            balanceData:data[0][0],
-            PendingPTORequest:pendingBalance,
-            consumedData: consumedBalance,
-            User :data[4][0]
-        });
-
-    });
-
+    } else {
+        // Not logged in
+        res.send('Please login to view this page!');
+    }
 });
 
 appPTO.listen(port, () => console.log(`Listening on http://localhost:${port}/login and http://localhost:${port}/supervisor`));
