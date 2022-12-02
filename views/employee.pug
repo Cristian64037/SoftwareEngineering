@@ -17,11 +17,11 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                         .col-4
                             | Vacation:
                             i
-                                b &nbsp; #{moment(User.hiredate).format('MM/DD/YYYY')}
+                                b &nbsp; #{moment(User.hiredate).format('MM/DD')}
                         .col-5
                             | Personal and Sick:
                             i
-                                b &nbsp;01/01/23
+                                b &nbsp;01/01
             .container-fluid
                 .row
                     .col-md-4
@@ -113,6 +113,6 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                                 td #{moment(data[key][0][data[key][0].length-1]).format('MM/DD/YYYY')}
                                 td #{data[key][2]}
                                 td #{moment(data[key][3]).format('MM/DD/YYYY')}
-                           
+
                                 td #{data[key][4]}
                                 td #{data[key][5]}
