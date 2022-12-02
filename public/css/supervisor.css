@@ -1,5 +1,5 @@
 .refresh {
-    width: 500px;
+    width: 250px;
     font-size: 14px;
 }
 .refresh b {
@@ -8,4 +8,10 @@
 .refresh i b {
     font-size: 12px;
     color: #000000;
+}
+.cen {
+    text-align: center;
+}
+.move {
+    text-align: right;
 }

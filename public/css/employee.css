@@ -9,3 +9,9 @@
     font-size: 12px;
     color: #000000;
 }
+.cen {
+    text-align: center;
+}
+.move {
+    text-align: right;
+}

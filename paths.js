@@ -19,63 +19,69 @@ appPTO.get('/team', function (req, res) {
 });
 
 appPTO.get('/supervisor', function (req, res) {
-    //Gets us all available balance
-    let PTO = require("./public/script/getPTOAvailable");
-    //This gets pending pto Requests
-    let PendingPTO=require("./public/script/getPendingPTOAvailable");
+    //If the user is loggedin
+    if (req.session.loggedin) {
+        //Gets us all available balance
+        let PTO = require("./public/script/getPTOAvailable");
+        //This gets pending pto Requests
+        let PendingPTO=require("./public/script/getPendingPTOAvailable");
 
-    //Get us Max Values
-    let MaxPTO=require("./public/script/getMaxPTOValues");
-    
-    let Requests=require("./public/script/getRequests");
-    
+        //Get us Max Values
+        let MaxPTO=require("./public/script/getMaxPTOValues");
 
-    let User=require("./public/script/getUser");
-    
+        let Requests=require("./public/script/getRequests");
 
-    Promise.all([PTO,PendingPTO,MaxPTO,Requests,User]).then(function(data){
-        //TotalPTO
-        let pendingBalance=[0];
-        let consumedBalance=[0];
-        let date_ob= new Date();
-        
 
-        let dict2={}
-        
-        data[3].forEach(reqD => {
-            if (!(reqD.ptorequestID in dict2)){              
-                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate];           
-            }
-             else{
-                 
-                  dict2[reqD.ptorequestID][0].push(reqD.dayReq)
+        let User=require("./public/script/getUser");
 
-              }
-            
+
+        Promise.all([PTO,PendingPTO,MaxPTO,Requests,User]).then(function(data){
+            //TotalPTO
+            let pendingBalance=[0];
+            let consumedBalance=[0];
+            let date_ob= new Date();
+
+
+            let dict2={}
+
+            data[3].forEach(reqD => {
+                if (!(reqD.ptorequestID in dict2)){
+                    dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate];
+                }
+                 else{
+
+                      dict2[reqD.ptorequestID][0].push(reqD.dayReq)
+
+                  }
+
+            });
+
+            consumedBalance[0] += parseInt(data[2][0].VacationTotal);
+            consumedBalance[0] -= parseInt(data[0][0].vbalance);
+
+
+
+
+            data[1].forEach(element => {
+                if (element.Pto_Name=="Vacation"){
+                    pendingBalance[0]+=parseInt(element.numofDays);
+                    consumedBalance[0]-=parseInt(element.numofDays);
+                }
+            });
+            res.render('supervisor', {
+                data: dict2,
+                balanceData:data[0][0],
+                PendingPTORequest:pendingBalance,
+                consumedData: consumedBalance,
+                User :data[4][0],
+                employee: req.session.username
+            });
+
         });
-        
-        consumedBalance[0] += parseInt(data[2][0].VacationTotal);
-        consumedBalance[0] -= parseInt(data[0][0].vbalance);
-        
-        
-
-
-        data[1].forEach(element => {
-            if (element.Pto_Name=="Vacation"){                
-                pendingBalance[0]+=parseInt(element.numofDays);
-                consumedBalance[0]-=parseInt(element.numofDays);
-            }
-        });
-        res.render('supervisor', {
-            data: dict2,
-            balanceData:data[0][0],
-            PendingPTORequest:pendingBalance,
-            consumedData: consumedBalance,
-            User :data[4][0]
-        });
-
-    });
-
+    } else {
+        // Not logged in
+        res.send('Please login to view this page!');
+    }
 });
 
 appPTO.get('/request', function (req, res) {
@@ -206,7 +212,8 @@ appPTO.get('/', function (req, res) {
                 balanceData:data[0][0],
                 PendingPTORequest:pendingBalance,
                 consumedData: consumedBalance,
-                User :data[4][0]
+                User :data[4][0],
+                employee: req.session.username
             });
 
         });

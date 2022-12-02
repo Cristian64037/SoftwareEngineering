@@ -9,21 +9,21 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
     .row
         main.ms-sm-auto.px-md-5
             .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
-                h2 Your PTO
-                button.btn.btn-outline-dark.disabled
-                    .row.refresh
-                        .col-3
-                            b Refresh Dates
-                        .col-4
-                            | Vacation:
-                             
-                            i
-                                b &nbsp;  #{moment(User.hiredate).format('MM/DD/YYYY')}
-                                
-                        .col-5
-                            | Personal and Sick:
-                            i
-                                b &nbsp;01/01/23
+                .col-4
+                    h2 Your PTO
+                .col-4.cen
+                    button.btn.btn-outline-dark.disabled
+                        .row.refresh
+                            .col-6
+                                b Refresh Date
+                            .col-6
+                                | PTO:
+                                i
+                                    b &nbsp;01/01/23
+                .col-4.move
+                    button.btn.btn-outline-dark.disabled
+                        .row
+                            b Hello Employee #{employee}
             .container-fluid
                 .row
                     .col-md-4
