@@ -8,39 +8,32 @@ section.main
     .main-top
         h1 Team 
     .users
-        div.container-fluid
-            div.row.flex-row.flex-nowrap
+        div.scrolling-wrapper-flexbox
             each emp in Employees
-                div.row-3
-                    .card.card-block
-            
-                        img(src='img/AL_BLR_SQ_MC_RGB.png')
-                        h4 #{emp.fname +emp.lname}
-                        p #{emp.empID}
                 
-                        .per
-                            table
-                                tr
-                                    td
-                                        span #{emp.sbalance} days
-                                    td
-                                        span #{emp.pbalance} days
-                                    td
-                                        span #{emp.vbalance} days
-                                tr
-                                    td Sick
-                                    td Personal
-                                    td Vacation 
-                        p Resfresh Date:#{moment(emp.hiredate).format('MM/DD')}
+                .card.card-block
+            
+                    img(src='img/AL_BLR_SQ_MC_RGB.png')
+                    h4 #{emp.fname +emp.lname}
+                    p ID: #{emp.empID}
+            
+                    .per
+                        table
+                            tr
+                                td
+                                    span #{emp.sbalance} days
+                                td
+                                    span #{emp.pbalance} days
+                                td
+                                    span #{emp.vbalance} days
+                            tr
+                                td Sick
+                                td Personal
+                                td Vacation 
+                    p Refresh Date:#{moment(emp.hiredate).format('MM/DD')} 
+                    br
                             
-                //- button(onclick='dv()') View Request
-                //-     script.
-                //-         function dv() {
-                //-             alert('David Vasquez, Sick, 10/24/22-11/19/22')
-                //-         }
         
-             
-
         
     section.attendance
         .attendance-list

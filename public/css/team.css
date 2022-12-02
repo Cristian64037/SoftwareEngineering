@@ -136,3 +136,13 @@ table thead tr{
     background-color: blue;
     color: #fff;
 }
+
+.scrolling-wrapper-flexbox {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+}
+.card {
+          flex: 0 0 auto;
+        }
+      
