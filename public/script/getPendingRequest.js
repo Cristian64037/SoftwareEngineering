@@ -4,7 +4,7 @@ const empID=843864
 
 module.exports = new Promise (function (resolve, reject) {
     con.connect(function(err) {
-        sql="select Request.ptorequestID, PtoType.Pto_Name, DayOff.dayReq, StausName.NmeOfStat, PtoStatus.dateChanged, PtoStatus.EmployeeChangedId,PtoStatus.Comments, Request.submitdate, Request.empID, Employee.fname, Employee.lname" +
+        sql="select Request.ptorequestID, PtoType.Pto_Name, DayOff.dayReq, StausName.NmeOfStat, PtoStatus.dateChanged, PtoStatus.EmployeeChangedId,PtoStatus.Comments, Request.submitdate, Request.empID, Employee.fname, Employee.lname, Request.numofDays" +
             " from Request Inner Join PtoType ON PtoType.ptonameID=Request.ptonameID and leaderID=";
         sql+=empID;
         sql+=" and Request.StatNmeId=1 Inner Join DayOff ON Request.ptorequestID=DayOff.ptorequestID Inner Join StausName ON Request.StatNmeId=StausName.StatNmeId " +

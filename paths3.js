@@ -3,12 +3,66 @@ let appPTO = express()
 let port = 4000;
 let bodyParser = require('body-parser');
 const Console = require("console");
+let con= require("./public/script/databaseConnection.js");
 
 appPTO.use(express.static('public'));
 appPTO.use(bodyParser.urlencoded({extended:true}));
 appPTO.set('view engine', 'pug');
 appPTO.locals.moment = require('moment');
 
+
+appPTO.post("/updateRequest", function (req, res,){
+    console.log(req.body);
+    let managerId=843864;
+    let dateToday= new Date();
+
+    let SqlPtoType="";
+    
+    let PtoType=req.body.ptoType;
+
+    if(PtoType=="Sick"){
+        SqlPtoType="sbalance";
+    }else if(PtoType=="Vacation"){
+        SqlPtoType="vbalance";
+    }else{
+        SqlPtoType="pbalance";
+    }
+    console.log(SqlPtoType);
+    
+    if(req.body.action==="approve"){
+        
+            //update in request
+    
+            con.query("UPDATE Request SET StatNmeId=2 WHERE ptorequestID="+req.body.requestID, function(err, rows, fields) {
+               if (err) throw err;
+    
+    
+                //update in status
+                con.query("INSERT INTO PtoStatus(StatNmeId, ptorequestID, EmployeeId, EmployeeChangedId,"+
+                 " dateChanged , comments) VALUES (2,"+req.body.requestID+","+req.body.employeeID+","+managerId+",CURRENT_DATE() ,'"+req.body.requestComments+"')", function(err, rows, fields) {
+                   
+                    //dateChanged , comments) VALUES (2,? ,?,?,?,?)",[req.body.requestID,req.body.employeeID.replace("`",""),managerId,dateToday,req.body.requestComments.replace("`","")], function(err, rows, fields) {
+                   
+                    if (err) throw err;
+    
+                    
+    
+                        res.redirect("/team");
+                    });
+                });
+            
+       
+        
+
+        
+        
+    }else if(req.body.action==="deny"){
+        console.log("Denying");
+    }else{
+        res.redirect("/team");
+    }
+    
+});
 appPTO.get('/team', function (req, res) {
     let PendingRequests = require("./public/script/getPendingRequest");
     let Employees = require("./public/script/getSupervisorEmployees");
@@ -17,7 +71,7 @@ appPTO.get('/team', function (req, res) {
         
         data[0].forEach(reqD => {
             if (!(reqD.ptorequestID in dict2)){              
-                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate,reqD.empID, reqD.fname,reqD.lname];           
+                dict2[reqD.ptorequestID]=[[reqD.dayReq],reqD.Pto_Name,reqD.NmeOfStat,reqD.dateChanged,reqD.EmployeeChangedId,reqD.Comments,reqD.submitdate,reqD.empID, reqD.fname,reqD.lname,reqD.numofDays];           
             }
              else{
                  
