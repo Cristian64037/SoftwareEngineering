@@ -9,29 +9,30 @@ section.main
         h1 Team 
     .users
         div.scrolling-wrapper-flexbox
-            each emp in Employees
+            if Employees !=0 
+                each emp in Employees
+                    
+                    .card.card-block
                 
-                .card.card-block
-            
-                    img(src='img/AL_BLR_SQ_MC_RGB.png')
-                    h4 #{emp.fname +emp.lname}
-                    p ID: #{emp.empID}
-            
-                    .per
-                        table
-                            tr
-                                td
-                                    span #{emp.sbalance} days
-                                td
-                                    span #{emp.pbalance} days
-                                td
-                                    span #{emp.vbalance} days
-                            tr
-                                td Sick
-                                td Personal
-                                td Vacation 
-                    p Refresh Date:#{moment(emp.hiredate).format('MM/DD')} 
-                    br
+                        img(src='img/AL_BLR_SQ_MC_RGB.png')
+                        h4 #{emp.fname +emp.lname}
+                        p ID: #{emp.empID}
+                
+                        .per
+                            table
+                                tr
+                                    td
+                                        span #{emp.sbalance} days
+                                    td
+                                        span #{emp.pbalance} days
+                                    td
+                                        span #{emp.vbalance} days
+                                tr
+                                    td Sick
+                                    td Personal
+                                    td Vacation 
+                        p Refresh Date:#{moment(emp.hiredate).format('MM/DD')} 
+                        br
                             
         
         
@@ -56,31 +57,32 @@ section.main
                         th Approve
                         
                 tbody
-                    each val,key in pendingRequests
-                        form(action="/updateRequest" method="post") 
-                            div.form-group
-                                tr
-                                    td 
-                                        input(type="text" readonly class="form-control-plaintext" name="requestID" value=key)
-                                    td 
-                                        input(type="text" readonly class="form-control-plaintext" name="employeeID" value=pendingRequests[key][7])
+                    if (pendingRequest)!=0
+                        each val,key in pendingRequests
+                            form(action="/updateRequest" method="post") 
+                                div.form-group
+                                    tr
+                                        td 
+                                            input(type="text" readonly class="form-control-plaintext" name="requestID" value=key)
+                                        td 
+                                            input(type="text" readonly class="form-control-plaintext" name="employeeID" value=pendingRequests[key][7])
 
-                                    td #{pendingRequests[key][8]+ pendingRequests[key][9]}
-                                    td  
-                                        input(type="text" readonly class="form-control-plaintext" name="requestDays" value=pendingRequests[key][10])
+                                        td #{pendingRequests[key][8]+ pendingRequests[key][9]}
+                                        td  
+                                            input(type="text" readonly class="form-control-plaintext" name="requestDays" value=pendingRequests[key][10])
 
-                                    td #{moment(pendingRequests[key][0][0]).format('MM/DD/YYYY')}
-                                    td #{moment(pendingRequests[key][0][pendingRequests[key][0].length-1]).format('MM/DD/YYYY')}
-                                    td 
-                                        input(type="text" readonly class="form-control-plaintext" name="ptoType" value=pendingRequests[key][1])
-                                    
-                                    td #{pendingRequests[key][2]}
-                                    td #{(pendingRequests[key][3])}
-                                    td #{pendingRequests[key][5]}
-                                    td
-                                        textarea(name="requestComments")
-                                    td
-                                        button(type="submit" class="btn btn-danger" name="action" value="deny") Deny
-                                    td
-                                        button(type="submit" class="btn btn-primary" name="action" value="approve") Approve
-                              
+                                        td #{moment(pendingRequests[key][0][0]).format('MM/DD/YYYY')}
+                                        td #{moment(pendingRequests[key][0][pendingRequests[key][0].length-1]).format('MM/DD/YYYY')}
+                                        td 
+                                            input(type="text" readonly class="form-control-plaintext" name="ptoType" value=pendingRequests[key][1])
+
+                                        td #{pendingRequests[key][2]}
+                                        td #{(pendingRequests[key][3])}
+                                        td #{pendingRequests[key][5]}
+                                        td
+                                            textarea(name="requestComments")
+                                        td
+                                            button(type="submit" class="btn btn-danger" name="action" value="deny") Deny
+                                        td
+                                            button(type="submit" class="btn btn-primary" name="action" value="approve") Approve
+

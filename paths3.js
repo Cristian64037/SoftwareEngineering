@@ -57,7 +57,34 @@ appPTO.post("/updateRequest", function (req, res,){
         
         
     }else if(req.body.action==="deny"){
-        console.log("Denying");
+        //Update Employee Table 
+        con.query("UPDATE Employee SET "+SqlPtoType+"="+SqlPtoType+"+"+parseInt(req.body.requestDays)+" WHERE empID="+req.body.employeeID, function(err, rows, fields) {
+            if (err) throw err;
+        //update in request
+    
+        con.query("UPDATE Request SET StatNmeId=3 WHERE ptorequestID="+req.body.requestID, function(err, rows, fields) {
+            if (err) throw err;
+ 
+ 
+             //update in status
+             con.query("INSERT INTO PtoStatus(StatNmeId, ptorequestID, EmployeeId, EmployeeChangedId,"+
+              " dateChanged , comments) VALUES (3,"+req.body.requestID+","+req.body.employeeID+","+managerId+",CURRENT_DATE() ,'"+req.body.requestComments+"')", function(err, rows, fields) {
+                
+                 //dateChanged , comments) VALUES (2,? ,?,?,?,?)",[req.body.requestID,req.body.employeeID.replace("`",""),managerId,dateToday,req.body.requestComments.replace("`","")], function(err, rows, fields) {
+                
+                 if (err) throw err;
+                    
+ 
+                 
+
+ 
+                
+                res.redirect("/team");
+                    
+                 });
+             });
+            });
+         
     }else{
         res.redirect("/team");
     }
@@ -77,8 +104,7 @@ appPTO.get('/team', function (req, res) {
                  
                   dict2[reqD.ptorequestID][0].push(reqD.dayReq)
 
-              }
-            
+              } 
         });
         //console.log(data[1]);
         res.render('team2',{
@@ -197,6 +223,10 @@ appPTO.get('/request', function (req, res) {
 });
 
 appPTO.get('/login', function (req, res) {
+    res.render('login');
+});
+appPTO.get('/logout', function (req, res) {
+    console.log("Loggingout")
     res.render('login');
 });
 

@@ -21,28 +21,29 @@ section.main
                     th Details
                     
             tbody
-                each value,key in data
-                    tr
-                        //- td #{key.ptorequestID}
-                        //- td #{key.Pto_Name}
-                        //- td #{moment(key.submitdate).format('MM/DD/YYYY')}
-                        //- td #{moment(key.dayReq).format('MM/DD/YYYY')}
-                        //- td #{key.NmeOfStat}
-                        //- td #{moment(key.dateChanged).format('MM/DD/YYYY')}
-                        //- td #{key.EmployeeChangedId}
-                        //- td #{key.Comments}
-                        td #{data[key][7]}
-                        td #{data[key][1]}
+                if data !=0
+                    each value,key in data
+                        tr
+                            //- td #{key.ptorequestID}
+                            //- td #{key.Pto_Name}
+                            //- td #{moment(key.submitdate).format('MM/DD/YYYY')}
+                            //- td #{moment(key.dayReq).format('MM/DD/YYYY')}
+                            //- td #{key.NmeOfStat}
+                            //- td #{moment(key.dateChanged).format('MM/DD/YYYY')}
+                            //- td #{key.EmployeeChangedId}
+                            //- td #{key.Comments}
+                            td #{data[key][7]}
+                            td #{data[key][1]}
 
 
-                        td #{moment(data[key][6]).format('MM/DD/YYYY')}
+                            td #{moment(data[key][6]).format('MM/DD/YYYY')}
+
+                            td #{moment(data[key][0][0]).format('MM/DD/YYYY')}
+                            td #{moment(data[key][0][data[key][0].length-1]).format('MM/DD/YYYY')}
+
+                            td #{data[key][2]}
+                            td #{moment(data[key][3]).format('MM/DD/YYYY')}
+
                         
-                        td #{moment(data[key][0][0]).format('MM/DD/YYYY')}
-                        td #{moment(data[key][0][data[key][0].length-1]).format('MM/DD/YYYY')}
-                        
-                        td #{data[key][2]}
-                        td #{moment(data[key][3]).format('MM/DD/YYYY')}
-                        
-                        
-                        td #{data[key][4]}
-                        td #{data[key][5]}
+                            td #{data[key][4]}
+                            td #{data[key][5]}
