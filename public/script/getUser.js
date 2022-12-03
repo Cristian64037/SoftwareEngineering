@@ -1,18 +1,17 @@
 const con= require("./databaseConnection");
-let results;
-const empID=843864
 
+const getUser = (request) => {
+    const empID = request.session.username;
+    return new Promise(function (resolve, reject) {
+        con.connect(function (err) {
+            sql = "Select * from Employee where empId="
+            sql += empID
 
-module.exports = new Promise (function (resolve, reject) {
-    con.connect(function(err) {
-        sql="Select * from Employee where empId="
-        sql+=empID
-        con.query(sql, function (err, result, fields) {
-            if (err ) throw err;
-            resolve(result);
-            //console.log(result);
+            con.query(sql, function (err, result, fields) {
+                if (err) throw err;
+                resolve(result);
+            });
         });
-
-
     });
-})
+}
+module.exports = {getUser}

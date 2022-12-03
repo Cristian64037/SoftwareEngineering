@@ -4,6 +4,15 @@ let port = 4000;
 let bodyParser = require('body-parser');
 const session = require('express-session');
 
+//Database Calls
+const PTOAvailable = require("./public/script/getPTOAvailable");
+const Pending = require("./public/script/getPendingPTOAvailable");
+const ConsumedPTO = require("./public/script/getMaxPTOValues");
+const UserRequests = require("./public/script/getRequests");
+const UserInfo = require("./public/script/getUser");
+let UserHistory = require("./public/script/getHistory");
+
+//App uses
 appPTO.use(session({
     secret: 'secret',
     resave: true,
@@ -21,18 +30,12 @@ appPTO.get('/team', function (req, res) {
 appPTO.get('/supervisor', function (req, res) {
     //If the user is loggedin
     if (req.session.loggedin) {
-        //Gets us all available balance
-        let PTO = require("./public/script/getPTOAvailable");
-        //This gets pending pto Requests
-        let PendingPTO=require("./public/script/getPendingPTOAvailable");
-
-        //Get us Max Values
-        let MaxPTO=require("./public/script/getMaxPTOValues");
-
-        let Requests=require("./public/script/getRequests");
-
-
-        let User=require("./public/script/getUser");
+        //Data Pulls
+        let PTO = PTOAvailable.getPTOAvailable(req);
+        let PendingPTO = Pending.getPendingPTOAvailable(req);
+        let MaxPTO = ConsumedPTO.getMaxPTO(req);
+        let Requests = UserRequests.getRequests(req);
+        let User = UserInfo.getUser(req);
 
 
         Promise.all([PTO,PendingPTO,MaxPTO,Requests,User]).then(function(data){
@@ -97,21 +100,9 @@ appPTO.post('/auth', function(request, response) {
     user.getUser(request, response);
 });
 
-// appPTO.get('/home', function(request, response) {
-//     // If the user is loggedin
-//     if (request.session.loggedin) {
-//         // Output username
-//         response.send('Welcome back, ' + request.session.username + '!');
-//     } else {
-//         // Not logged in
-//         response.send('Please login to view this page!');
-//     }
-//     response.end();
-// });
-
 appPTO.get('/history', function (req, res) {
-    let Requests=require("./public/script/getRequests");
-    let History=require("./public/script/getHistory")
+    let Requests = UserRequests.getRequests(req);
+    let History = UserHistory.getHistory(req);
     
     Promise.all([Requests,History]).then(function(data){
         
@@ -150,16 +141,12 @@ appPTO.get('/login', function (req, res) {
 appPTO.get('/', function (req, res) {
     //If the user is loggedin
     if (req.session.loggedin) {
-
-        //Gets us all available balance
-        let PTO = require("./public/script/getPTOAvailable");
-        //This gets pending pto Requests
-        let PendingPTO=require("./public/script/getPendingPTOAvailable");
-
-        //Get us Max Values
-        let MaxPTO=require("./public/script/getMaxPTOValues");
-        let Requests=require("./public/script/getRequests");
-        let User=require("./public/script/getUser");
+        //Data Pulls
+        let PTO = PTOAvailable.getPTOAvailable(req);
+        let PendingPTO = Pending.getPendingPTOAvailable(req);
+        let MaxPTO = ConsumedPTO.getMaxPTO(req);
+        let Requests = UserRequests.getRequests(req);
+        let User = UserInfo.getUser(req);
 
 
         Promise.all([PTO,PendingPTO,MaxPTO,Requests,User]).then(function(data){

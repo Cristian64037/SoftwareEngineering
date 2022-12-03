@@ -4,8 +4,6 @@ const getUser = (request, response) => {
     // Capture the input fields
     let eID = request.body.username;
     let password = request.body.password;
-    console.log(eID);
-    console.log(password);
     // Ensure the input fields exists and are not empty
     if (eID && password) {
         // Execute SQL query that'll select the account from the database based on the specified username and password
