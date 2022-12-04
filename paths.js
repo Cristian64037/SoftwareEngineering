@@ -121,12 +121,23 @@ appPTO.get('/request', function (req, res) {
 
 appPTO.get('/login', function (req, res) {
     //If the user is not loggedin
-    //if (!req.session.loggedin) {
+    if (!req.session.loggedin) {
         res.render('login');
-    //} else {
-        //Logged in
-    //    res.send('You are already logged in!');
-    //}
+    } else {
+        res.send('You are already logged in!');
+    }
+});
+
+appPTO.get("/logout", function (req, res) {
+    if (req.session) {
+        req.session.destroy(error => {
+            if (error) {
+                res.send("Logout Error");
+            } else {
+                res.redirect("/login");
+            }
+        });
+    }
 });
 
 appPTO.post('/auth', function (request, response) {
