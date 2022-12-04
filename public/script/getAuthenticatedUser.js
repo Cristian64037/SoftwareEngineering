@@ -16,9 +16,10 @@ const getUser = (request, response) => {
                 // Authenticate the user
                 request.session.loggedin = true;
                 request.session.username = eID;
+                request.session.role = results[0].RoleId;
 
                 //Employee View if RoleId is 3
-                if (results[0].RoleId == 3) {
+                if (results[0].RoleId === 3) {
                     response.redirect('/');
                 } else {
                     response.redirect('/supervisor');
