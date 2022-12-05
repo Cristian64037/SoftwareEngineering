@@ -5,8 +5,11 @@ include html/imports/awesomeLinks.html
 link(rel='stylesheet' href='/css/team.css')
 include html/navSupervisor.html
 section.main
-    .main-top
-        h1 Team PTO
+    .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+        h2 Team PTO
+        button.btn.btn-outline-dark.disabled
+            .row
+                b Hello Employee #{employee.user}
     .users
         .card
             img(src='img/AL_BLR_SQ_MC_RGB.png')
