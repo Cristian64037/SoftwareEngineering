@@ -50,6 +50,18 @@ appPTO.post("/sendPtoRequest", function(req, res,){
 
         let InsertDate = new Date().toISOString(); 
 
+        let SqlPtoType="";
+    
+        let PtoType=req.body.ptoType;
+
+        if(PtoType==3){
+            SqlPtoType="sbalance";
+        }else if(PtoType==1){
+            SqlPtoType="vbalance";
+        }else{
+            SqlPtoType="pbalance";
+        }
+
         
         
      
@@ -80,10 +92,14 @@ appPTO.post("/sendPtoRequest", function(req, res,){
                            
                         
                                if (err) throw err;
+
                                con.query("INSERT INTO DayOff (ptorequestID, dayReq) VALUES ("+PtoId+",'"+req.body.tripend+"')", function(err, rows, fields) {
                            
                         
                                 if (err) throw err;
+                                //Update in employee 
+                                con.query("UPDATE Employee SET "+SqlPtoType+"="+SqlPtoType+"-"+finalDatesList.length+" WHERE empID="+req.body.empID, function(err, rows, fields) {
+                                    if (err) throw err;
         
        
     
@@ -91,13 +107,15 @@ appPTO.post("/sendPtoRequest", function(req, res,){
     
                         res.redirect("/request");
                     });
+                
                 });
             });
         });
     });
+});
+});
  
         //res.redirect("/request");
-    });
     
 
 })
@@ -134,6 +152,8 @@ appPTO.post("/updateRequest", function (req, res,){
                     //dateChanged , comments) VALUES (2,? ,?,?,?,?)",[req.body.requestID,req.body.employeeID.replace("`",""),managerId,dateToday,req.body.requestComments.replace("`","")], function(err, rows, fields) {
                    
                     if (err) throw err;
+                    //Update Balance
+                    
     
                     
     
