@@ -9,7 +9,7 @@ main.ms-sm-auto.px-md-4
         h2 Request PTO
     .container
         .content
-            form(action='#')
+            form(action="/sendPtoRequest" method="post")
                 .wrapper
                     header
                         p.current-date
@@ -28,39 +28,52 @@ main.ms-sm-auto.px-md-4
                         ul.days
                 .user-details
                     .input-box
-                        span.details First Name
-                        input(type='text' placeholder='Enter your First Name' required='')
+                        span.details Name:
+                        input(type='text' name="empName" readonly class="form-control-plaintext"  placeholder=User.fname+User.lname value=User.fname+User.lname)
                     .input-box
-                        span.details Last Name
-                        input(type='text' placeholder='Enter your Last Name' required='')
+                        span.details Aldi ID
+                        input(type='text' name="empID" readonly class="form-control-plaintext"  placeholder=User.empID value=User.empID)
                     .input-box
-                        span.details ALDI ID
-                        input(type='text' placeholder='Enter your ALDI ID' required='')
-                    .input-box
-                        span.details Date Selected
+                        span.details Beginning Date
                         html
                             head
                             body
-                                input#start(type='date', name='trip-start', value='2022-11-30', min='2022-11-01', max='2023-12-31')
+                                input#start(type='date', name="tripstart", value='2022-12-04', min='2022-12-01', max='2023-12-31')
+                    .input-box
+                        span.details End Date
+                        html
+                            head
+                            body
+                                input#start(type='date', name="tripend", value='2022-12-04', min='2022-12-01', max='2023-12-31')
+                                
 
-                    .input-box2
+                    .input-box
                         span.details Description
-                        input(type='text' placeholder='Enter your reason?' required='')
+                        input(type='text' name="Descript" placeholder='Enter your reason?' )
+                    .input-box
+                        span.details LeaderID
+                        input(type='text' name="leaderID" readonly class="form-control-plaintext"  placeholder=User.leaderID value=User.leaderID)
                 .pto-details
-                    input#dot-1(type='radio' name='pto')
-                    input#dot-2(type='radio' name='pto')
-                    input#dot-3(type='radio' name='pto')
+                    if User.sbalance !=0
+                        input#dot-1(type='radio' name='ptoType' value=3)
+                    if User.pbalance !=0
+                        input#dot-2(type='radio' name='ptoType' value=2)
+                    if User.vbalance !=0
+                        input#dot-3(type='radio' name='ptoType' value=1)
                     span.pto-title PTO Type
                     .category
-                        label(for='dot-1')
-                            span.dot.one
-                            span.pto Sick
-                        label(for='dot-2')
-                            span.dot.two
-                            span.pto Personal
-                        label(for='dot-3')
-                            span.dot.three
-                            span.pto Vacation
+                        if User.sbalance !=0
+                            label(for='dot-1' )
+                                span.dot.one
+                                span.pto Sick
+                        if User.pbalance !=0
+                            label(for='dot-2' )
+                                span.dot.two
+                                span.pto Personal
+                        if User.vbalance !=0
+                            label(for='dot-3')
+                                span.dot.three
+                                span.pto Vacation
                 .button
                     input(type='submit' value='Request')
 

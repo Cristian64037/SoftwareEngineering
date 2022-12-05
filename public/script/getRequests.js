@@ -14,7 +14,7 @@ module.exports = new Promise (function (resolve, reject) {
             resolve(result);
             //console.log(result);
         });
-
+    
 
     });
 })

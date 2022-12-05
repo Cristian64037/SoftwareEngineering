@@ -4,13 +4,103 @@ let port = 4000;
 let bodyParser = require('body-parser');
 const Console = require("console");
 let con= require("./public/script/databaseConnection.js");
+  
 
 appPTO.use(express.static('public'));
 appPTO.use(bodyParser.urlencoded({extended:true}));
 appPTO.set('view engine', 'pug');
 appPTO.locals.moment = require('moment');
 
+appPTO.post("/sendPtoRequest", function(req, res,){
+    console.log(req.body)
+    let holidays=require("./public/script/getHolidays");
+    
+    function isWeekend(date = new Date()) {
+        return date.getDay() === 6 || date.getDay() === 0;
+      }
+    function getDatesInRange(startDate, endDate) {
+        const date = new Date(startDate.getTime()); 
+        const dates = [];    
+        while (date <= endDate) {
+            if(!(isWeekend((new Date(date))))){
+                dates.push(new Date(date));
+                //date.setDate(date.getDate() + 1);
+                
 
+            }
+            date.setDate(date.getDate() + 1);
+        } 
+        return dates;
+      }
+    let d1 = new Date(req.body.tripstart);
+    let d2 = new Date(req.body.tripend);
+    let dates2 = getDatesInRange(d1, d2);
+    let finalDatesList=[]
+    dates2.forEach(function(date){
+        finalDatesList.push(date.toDateString());
+
+    })
+    Promise.all([holidays]).then(function(data){       
+        data[0].forEach(Dop => {   
+            if (finalDatesList.includes((Dop.DayOff.toDateString()))) {
+                let index=dates2.indexOf(Dop.DayOff.toDateString());
+                finalDatesList.splice(index, 1);
+            } });
+        console.log(finalDatesList.length);
+
+        let InsertDate = new Date().toISOString(); 
+
+        
+        
+     
+  
+        //Insert Request
+        con.query("INSERT INTO Request ( empID, ptonameID, StatNmeId, leaderID, numofDays, submitdate) VALUES ("+req.body.empID+
+        ","+req.body.ptoType+",1,"+req.body.leaderID+","+finalDatesList.length+",'"+InsertDate+"')", function(err, rows, fields) {
+               if (err) throw err;
+
+
+               //Get PtoRequestID
+                con.query("SELECT ptorequestID FROM `Request` WHERE  submitdate='"+InsertDate.slice(0,-5)+"'", function(err, result, fields) {
+                       if (err) throw err;
+                       console.log(result[0]);
+                       let PtoId=result[0].ptorequestID;
+                
+                
+                        //update in status
+                        con.query("INSERT INTO PtoStatus(StatNmeId, ptorequestID, EmployeeId, EmployeeChangedId,"+
+                         " dateChanged , comments) VALUES (1,"+PtoId+","+req.body.empID+","+req.body.leaderID+",'"+InsertDate+"','"+req.body.Descript+"')", function(err, rows, fields) {
+                        
+                            
+                            
+                            if (err) throw err;
+
+                            //Insert Into Days Off
+                            con.query("INSERT INTO DayOff (ptorequestID, dayReq) VALUES ("+PtoId+",'"+req.body.tripstart+"')", function(err, rows, fields) {
+                           
+                        
+                               if (err) throw err;
+                               con.query("INSERT INTO DayOff (ptorequestID, dayReq) VALUES ("+PtoId+",'"+req.body.tripend+"')", function(err, rows, fields) {
+                           
+                        
+                                if (err) throw err;
+        
+       
+    
+                    
+    
+                        res.redirect("/request");
+                    });
+                });
+            });
+        });
+    });
+ 
+        //res.redirect("/request");
+    });
+    
+
+})
 appPTO.post("/updateRequest", function (req, res,){
     console.log(req.body);
     let managerId=843864;
@@ -180,9 +270,7 @@ appPTO.get('/supervisor', function (req, res) {
 
 
 
-appPTO.get('/request', function (req, res) {
-    res.render('request');
-});
+
 
 appPTO.get('/login', function (req, res) {
     res.render('login');
@@ -218,7 +306,25 @@ appPTO.get('/history', function (req, res) {
 });
 
 appPTO.get('/request', function (req, res) {
-    res.render('request')
+    let User=require("./public/script/getUser");
+    
+    Promise.all([User]).then(function(data){
+       // console.log(data[0])
+        ptoBalances=[0,0,0]
+        ptoBalances[0] += parseInt(data[0][0].pbalance);
+        ptoBalances[1] += parseInt(data[0][0].vbalance);
+        ptoBalances[2] += parseInt(data[0][0].sbalance);
+    
+ 
+        res.render('request', {
+           
+            User :data[0][0],
+            PtoBal:ptoBalances
+        });
+
+    });
+    
+   
     
 });
 
