@@ -13,12 +13,11 @@
     width: 100%;
 }
 .users .card{
-    width: 25%;
     margin: 10px;
     background: #fff;
     text-align: center;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px 40px;
     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
 .users .card img{
