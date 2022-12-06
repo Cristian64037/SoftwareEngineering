@@ -1,13 +1,12 @@
 include html/global/head.html
 title Request PTO
 include html/imports/bootstrapLinks.html
-include html/imports/calendarLinks.html
 - let roleId = employee.role;
 - if (roleId === 3)
     include html/navEmployee.html
 - else
     include html/navSupervisor.html
-link(rel='stylesheet' href='/css/style.css')
+link(rel='stylesheet' href='/css/request.css')
 main.ms-sm-auto.px-md-4
     .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
         h2 Request PTO
