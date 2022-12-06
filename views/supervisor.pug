@@ -4,48 +4,45 @@ include html/imports/bootstrapLinks.html
 link(rel='stylesheet' href='/css/supervisor.css')
 include html/navSupervisor.html
 script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous")
-
 .container-fluid
     .row
         main.ms-sm-auto.px-md-5
             .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
-                h2 Your PTO
-                button.btn.btn-outline-dark.disabled
-                    .row.refresh
-                        .col-3
-                            b Refresh Dates
-                        .col-4
-                            | Vacation:
-                             
-                            i
-                                b &nbsp;  #{moment(User.hiredate).format('MM/DD/YYYY')}
-                                
-                        .col-5
-                            | Personal and Sick:
-                            i
-                                b &nbsp;01/01/23
+                .col-4
+                    h2 Your PTO
+                .col-4.cen
+                    button.btn.btn-outline-dark.disabled
+                        .row.refresh
+                            .col-6
+                                b Refresh Date
+                            .col-6
+                                | PTO:
+                                i
+                                    b &nbsp;01/01
+                .col-4.move
+                    button.btn.btn-outline-dark.disabled
+                        .row
+                            b Hello Employee #{employee.user}
             .container-fluid
                 .row
                     .col-md-4
                         canvas#doughnutChart1.mt-1.mb-4.w-100(width='500' height='380')
                             script.
-
-                    
                                 var pChart = document.getElementById("doughnutChart1").getContext('2d');
-                                    var pDoughnut = new Chart(pChart, {
-                                        type: 'doughnut',
-                                        data: {
-                                            labels: ["Available", "Pending", "Consumed"],
-                                            datasets: [{
-                                                data: [#{balanceData.vbalance}, #{PendingPTORequest[0]}, #{consumedData[0]}],
-                                                backgroundColor: ["#75B809", "#FA8214", "#C80000"],
-                                                hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
-                                            }]
-                                        },
-                                        options: {
-                                            responsive: true
-                                        }
-                                    });
+                                var pDoughnut = new Chart(pChart, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ["Available", "Pending", "Consumed"],
+                                        datasets: [{
+                                            data: [#{balanceData.vbalance}, #{PendingPTORequest[0]}, #{consumedData[0]}],
+                                            backgroundColor: ["#75B809", "#FA8214", "#C80000"],
+                                            hoverBackgroundColor: ["#75B809", "#FA8214", "#C80000"]
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true
+                                    }
+                                });
                         p.text-center.fs-4 Vacation: #{balanceData.vbalance} Days Available
                     .col-md-8
                         .border-bottom.mb-3
@@ -63,13 +60,12 @@ script(src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integ
                                     th(scope='col') Comments
 
                                 tbody
-                                if data !=0
-                                    each val,key in data
-                                        tr
-                                            td #{data[key][1]}
-                                            td #{moment(data[key][0][0]).format('MM/DD/YYYY')}
-                                            td #{moment(data[key][0][data[key][0].length-1]).format('MM/DD/YYYY')}
-                                            td #{data[key][2]}
-                                            td #{moment(data[key][3]).format('MM/DD/YYYY')}
-                                            td #{data[key][4]}
-                                            td #{data[key][5]}
+                                each val,key in data
+                                    tr
+                                        td #{data[key][1]}
+                                        td #{moment(data[key][0][0]).format('MM/DD/YYYY')}
+                                        td #{moment(data[key][0][data[key][0].length - 1]).format('MM/DD/YYYY')}
+                                        td #{data[key][2]}
+                                        td #{moment(data[key][3]).format('MM/DD/YYYY')}
+                                        td #{data[key][4]}
+                                        td #{data[key][5]}

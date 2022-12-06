@@ -5,13 +5,13 @@ link(rel='stylesheet' href='/css/login.css')
 .wrapper
     .title
         img(src="/img/AL_BLR_LA_MC_RGB.png" alt="ALDI Logo")
-    form(action='/')
+    form(action='/auth' method="post")
         .field
-            input(type='text' required='')
-            label Email Address
+            input#username(type='text' required='' name="username")
+            label(for="username") Employee ID
         .field
-            input(type='password' required='')
-            label Password
+            input#password(type='password' required='' name="password")
+            label(for="password") Password
         .content
             .checkbox
                 input#remember-me(type='checkbox')

@@ -5,76 +5,163 @@ include html/imports/awesomeLinks.html
 link(rel='stylesheet' href='/css/team.css')
 include html/navSupervisor.html
 section.main
-    .main-top
-        h1 Team 
+    .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+        h2 Team PTO
+        button.btn.btn-outline-dark.disabled
+            .row
+                b Hello Employee #{employee.user}
     .users
-        div.container-fluid
-            div.row.flex-row.flex-nowrap
-            each emp in Employees
-                div.row-3
-                    .card.card-block
-            
-                        img(src='img/AL_BLR_SQ_MC_RGB.png')
-                        h4 #{emp.fname +emp.lname}
-                        p #{emp.empID}
-                
-                        .per
-                            table
-                                tr
-                                    td
-                                        span #{emp.sbalance} days
-                                    td
-                                        span #{emp.pbalance} days
-                                    td
-                                        span #{emp.vbalance} days
-                                tr
-                                    td Sick
-                                    td Personal
-                                    td Vacation 
-                        p Resfresh Date:#{moment(emp.hiredate).format('MM/DD')}
-                            
-                //- button(onclick='dv()') View Request
-                //-     script.
-                //-         function dv() {
-                //-             alert('David Vasquez, Sick, 10/24/22-11/19/22')
-                //-         }
-        
-             
+        .card
+            img(src='img/AL_BLR_SQ_MC_RGB.png')
+            h4 David Vasquez
+            p 112
+            .per
+                table
+                    tr
+                        td
+                            span 6 Days
+                        td
+                            span 4 Days
+                        td
+                            span 9 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button(onclick='dv()') View Request
+                script.
+                    function dv() {
+                        alert('David Vasquez, Sick, 10/24/22-11/19/22')
+                    }
+        .card
+            img(src='img/AL_BLR_SQ_MC_RGB.png')
+            h4 Nick Boes
+            p 98
+            .per
+                table
+                    tr
+                        td
+                            span 3 Days
+                        td
+                            span 8 Days
+                        td
+                            span 6 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button(onclick='nb()') View Request
+                script.
+                    function nb() {
+                        alert('Nick Boes, Vacation, 9/7/22-11/26/22')
+                    }
 
-        
+        .card
+            img(src='img/AL_BLR_SQ_MC_RGB.png')
+            h4 Christian Laura
+            p 76
+            .per
+                table
+                    tr
+                        td
+                            span 3 Days
+                        td
+                            span 4 Days
+                        td
+                            span 7 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button(onclick='cl()') View Request
+                script.
+                    function cl() {
+                        alert('Christian Lara, Sick, 8/8/22-12/8/22')
+                    }
+
+        .card
+            img(src='img/AL_BLR_SQ_MC_RGB.png')
+            h4 Tony Magana
+            p 86
+            .per
+                table
+                    tr
+                        td
+                            span 6 Days
+                        td
+                            span 2 Days
+                        td
+                            span 8 Days
+                    tr
+                        td Sick
+                        td Personal
+                        td Vacation
+            button(onclick='tm()') View Request
+                script.
+                    function tm() {
+                        alert('Tony Magana, Personal, 11/4/22-12/4/22')
+                    }
+
     section.attendance
         .attendance-list
-            h1 Current Team PTO Requests
+            h1 Current PTO Request
             table.table
                 thead
                     tr
-                        th Request ID
-                        th Employee Id
-                        th Employee name
+                        th ID
+                        th Name
                         th Start Date
                         th End Date
                         th Type
-                        th Status
-                        th Submit Time Stamp
-                        th Comments
                         th
                         th
                         th
                 tbody
-                    each val,key in pendingRequests
-                        tr
-                            td #{key}
-                            td #{pendingRequests[key][7]}  
-                            td #{pendingRequests[key][8]+ pendingRequests[key][9]}
-                            td #{moment(pendingRequests[key][0][0]).format('MM/DD/YYYY')}
-                            td #{moment(pendingRequests[key][0][pendingRequests[key][0].length-1]).format('MM/DD/YYYY')}
-                            td #{pendingRequests[key][1]}
-                            td #{pendingRequests[key][2]}
-                            td #{(pendingRequests[key][3])}
-                            td #{pendingRequests[key][5]}
-                            td
-                                abutton Accept
-                            td
-                                dbutton Deny
-                            td
-                                bbutton Comment
+                    tr
+                        td 112
+                        td David Vasquez
+                        td 10-24-22
+                        td 11-19-22
+                        td Sick
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                        td
+                            bbutton Comment
+                    tr.active
+                        td 98
+                        td Nick Boes
+                        td 9-7-22
+                        td 11-26-22
+                        td Vacation
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                        td
+                            bbutton Comment
+                    tr
+                        td 76
+                        td Christian Lara
+                        td 8-8-22
+                        td 12-8-22
+                        td Sick
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                        td
+                            bbutton Comment
+                    tr
+                        td 86
+                        td Tony Magana
+                        td 11-4-22
+                        td 12-4-22
+                        td Personal
+                        td
+                            abutton Accept
+                        td
+                            dbutton Deny
+                        td
+                            bbutton Comment
