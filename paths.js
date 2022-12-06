@@ -31,7 +31,7 @@ appPTO.post("/sendPtoRequest", function(req, res,){
     let holidays = require("./public/script/getHolidays");
 
     function isWeekend(date = new Date()) {
-        return date.getDay() === 6 || date.getDay() === 0;
+        return date.getDay() === 5 || date.getDay() === 6;
     }
 
     function getDatesInRange(startDate, endDate) {
