@@ -53,15 +53,15 @@ main.ms-sm-auto.px-md-4
                         input#dot-3(type='radio' name='ptoType' value=1)
                     span.pto-title PTO Type
                     .category
-                        if User.sbalance !=0
+                        if User.sbalance >0
                             label(for='dot-1' )
                                 span.dot.one
                                 span.pto Sick
-                        if User.pbalance !=0
+                        if User.pbalance >0
                             label(for='dot-2' )
                                 span.dot.two
                                 span.pto Personal
-                        if User.vbalance !=0
+                        if User.vbalance >0
                             label(for='dot-3')
                                 span.dot.three
                                 span.pto Vacation
